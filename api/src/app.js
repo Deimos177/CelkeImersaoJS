@@ -33,7 +33,7 @@ mongoose.connect('mongodb://localhost/CelkeImersaoJS',
 })
 
 app.get('/', (requisition, response)=>{
-    response.json({name: "Bruce"})
+    response.send("Servidor iniciado")
 })
 
 app.get('/home',async  (requisition, response)=>{
@@ -80,7 +80,7 @@ app.post('/contato', async (requisition, response) =>{
         })
 
         return response.status(201).json({
-            error: true,
+            error: false,
             message: "Dados de contato cadastrado com sucesso!"
         })
     })
