@@ -11,7 +11,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 
 library.add(fas)
 
-function Home() {
+function Home({ data }) {
     return (
       <>
       <Head>
@@ -33,18 +33,17 @@ function Home() {
           }
         </style>
         <Container className="text-center">
-          <h1 className="display-4">Titulo</h1>
-          <p className="lead">Subtitulo</p>
-          <p className="lead">Subtitulo</p>
+        <h1 className="display-4">{data.home.topTitle}</h1>
+        <p className="lead">{data.home.topSubTitle}</p>
           <p>
-            <a href="#" className="btn btn-outline-warning btn-lg">
-              Texto
+            <a href={data.home.topLinkButton} className="btn btn-outline-warning btn-lg">
+              {data.home.topTextButton}
             </a>
           </p>
         </Container>
       </Jumbotron>
 
-      <Jumbotron fluid className="servicoes">
+      <Jumbotron fluid className="servicos">
         <style>
           {
             `
@@ -73,33 +72,33 @@ function Home() {
         <Container className="text-center">
           <div>
             <h2 className="display-4">
-              Título
+              {data.home.serviceTitle}
             </h2>
             <p className="lead pb-4">
-              Subtitulo
+              {data.home.serviceSubTitle}
             </p>
           </div>
           <div className="row">
             <div className="col-md-4">
               <div className="rounded-circle circulo centralizar">
-                <FontAwesomeIcon icon={["fas", "code"]} />
+                <FontAwesomeIcon icon={data.home.firstServiceIcon} />
               </div>
-              <h2 className="mt-4 mb-4">Serviço 1</h2>
-              <p>Descrição</p>
+              <h2 className="mt-4 mb-4">{data.home.firstServiceTitle}</h2>
+              <p>{data.home.firstServiceDescription}</p>
             </div>
             <div className="col-md-4">
               <div className="rounded-circle circulo centralizar">
-                <FontAwesomeIcon icon={["fas", "laptop-code"]} />
+                <FontAwesomeIcon icon={data.home.secondServiceIcon} />
               </div>
-              <h2 className="mt-4 mb-4">Serviço 2</h2>
-              <p>Descrição</p>
+              <h2 className="mt-4 mb-4">{data.home.secondServiceTitle}</h2>
+              <p>{data.home.secondServiceDescription}</p>
             </div>
             <div className="col-md-4">
               <div className="rounded-circle circulo centralizar">
-                <FontAwesomeIcon icon={["fas", "mobile-alt"]} />
+                <FontAwesomeIcon icon={data.home.thirdServiceIcon} />
               </div>
-              <h2 className="mt-4 mb-4">Serviço 3</h2>
-              <p>Descrição</p>
+              <h2 className="mt-4 mb-4">{data.home.thirdServiceTitle}</h2>
+              <p>{data.home.thirdServiceDescription}</p>
             </div>
           </div>
         </Container>
@@ -107,6 +106,12 @@ function Home() {
       <Footer/>
       </>
     )
+  }
+
+  export async function getServerSideProps(){
+    const response = await fetch(`http://192.168.1.110:8080/home`)
+    const data = await response.json()
+    return {props: { data }}
   }
   
   export default Home

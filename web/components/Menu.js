@@ -27,9 +27,9 @@ import {
                     <NavItem>
                         <NavLink href="/">Home</NavLink>
                     </NavItem>
-                    <NavItem>
+                    {/* <NavItem>
                         <NavLink href="/about">Sobre empresa</NavLink>
-                    </NavItem>
+                    </NavItem> */}
                     <NavItem>
                         <NavLink href="/contact/">Contato</NavLink>
                     </NavItem>
