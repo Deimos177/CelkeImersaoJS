@@ -25,13 +25,13 @@ import {
             <Collapse isOpen={isOpen} navbar>
                 <Nav className="mr-auto" navbar>
                     <NavItem>
-                        <NavLink href="/">Index</NavLink>
+                        <NavLink href="/">Home</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/sobre-empresa/">Sobre empresa</NavLink>
+                        <NavLink href="/about">Sobre empresa</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/contato/">Contato</NavLink>
+                        <NavLink href="/contact/">Contato</NavLink>
                     </NavItem>
                 </Nav>
             </Collapse>

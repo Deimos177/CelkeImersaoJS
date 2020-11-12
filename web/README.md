@@ -1,2 +1,4 @@
-Minuto do vídeo
-## parei no 35:05
+Instalar dependências
+### npm install
+
+parei em 1:10:22
