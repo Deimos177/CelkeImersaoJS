@@ -11,7 +11,7 @@ export const Content = styled.TouchableOpacity`
   border: 1px solid rgba(235, 177, 5, 0.5);
   border-radius: 4px;
   margin-top: 10px;
-  background-color: #fff;
+  background-color: #ebb105;
 `
 
 export const RowDataHome = styled.View`
