@@ -36,9 +36,9 @@ app.get('/', (requisition, response)=>{
     response.send("Servidor iniciado")
 })
 
-app.get('/home',async  (requisition, response)=>{
+app.get('/home', async  (requisition, response)=>{
     await Home.findOne({}).then((home)=>{
-        return response.status(302).json({
+        return response.status(200).json({
             error: false,
             home
         })

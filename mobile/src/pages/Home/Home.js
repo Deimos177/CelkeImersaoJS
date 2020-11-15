@@ -1,86 +1,125 @@
-import React from 'react'
-import { Text } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import React, { useCallback, useState } from 'react';
 
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
-import { 
-  Container, 
-  Content, 
-  RowDataHome, 
-  DataIcon, 
-  DataHome,
-  ViewContact 
-} from './style'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-export default function Home (){
-  const navigation = useNavigation()
-  return(
-    <Container>
-      <Content onPress={() =>{
-        navigation.navigate('Contact')
-      }}>
-        <RowDataHome>
-          <DataIcon>
-            <FontAwesome5 name="code"
-            size={30}
-            color="#000"
-            />
-            </DataIcon>
-          <DataHome>Serviço 1</DataHome>
-          <ViewContact><MaterialCommunityIcons 
-          name="greater-than"
-          size={30}
-          color="#000"
-          /></ViewContact>
-        </RowDataHome>
-        <RowDataHome>
-          <Text>Descrição</Text>
-        </RowDataHome>
-      </Content>
-      <Content onPress={() =>{
-        navigation.navigate('Contact')
-      }}>
-        <RowDataHome>
-          <DataIcon>
-            <FontAwesome5 name="code"
-            size={30}
-            color="#000"
-            />
-            </DataIcon>
-          <DataHome>Serviço 2</DataHome>
-          <ViewContact><MaterialCommunityIcons 
-          name="greater-than"
-          size={30}
-          color="#000"
-          /></ViewContact>
-        </RowDataHome>
-        <RowDataHome>
-          <Text>Descrição</Text>
-        </RowDataHome>
-      </Content>
-      <Content onPress={() =>{
-        navigation.navigate('Contact')
-      }}>
-        <RowDataHome>
-          <DataIcon>
-            <FontAwesome5 name="code"
-            size={30}
-            color="#000"
-            />
-            </DataIcon>
-          <DataHome>Serviço 3</DataHome>
-          <ViewContact><MaterialCommunityIcons 
-          name="greater-than"
-          size={30}
-          color="#000"
-          /></ViewContact>
-        </RowDataHome>
-        <RowDataHome>
-          <Text>Descrição</Text>
-        </RowDataHome>
-      </Content>
-    </Container>
-  )
-}
+import { Container, ContentHome, RowDataHome, DataIcon, DataHome, ViewContato, LoadingArea } from './style';
+import { Text, ActivityIndicator } from 'react-native';
+
+import api from '../../config/api';
+
+export default function Home() {
+
+    const [dataHome, setDataHome] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const navigation = useNavigation();
+
+    const getDataHome = async () => {
+        setLoading(true);
+        try {
+            const response = await api.get('/home');
+            setDataHome(response.data.home);
+            //console.log(response.data.home);
+            setLoading(false);
+        } catch (err) {
+            setLoading(false);
+        }
+    }
+
+    useFocusEffect(
+        useCallback(() => {
+            getDataHome();
+        }, [])
+    );
+
+    return (
+        <Container>
+            <ContentHome onPress={() => {
+                navigation.navigate('Contato')
+            }}>
+                <RowDataHome>
+                    <DataIcon>
+                        <FontAwesome5
+                            name={dataHome.serUmIcone}
+                            size={30}
+                            color="#fff"
+                        />
+                    </DataIcon>
+                    <DataHome>{dataHome.serUmTitulo}</DataHome>
+                    <ViewContato>
+                        <MaterialCommunityIcons
+                            name="greater-than"
+                            size={30}
+                            color="#fff"
+                        />
+                    </ViewContato>
+                </RowDataHome>
+                <RowDataHome>
+                    <Text>{dataHome.serUmDesc}</Text>
+                </RowDataHome>
+            </ContentHome>
+
+            <ContentHome onPress={() => {
+                navigation.navigate('Contato')
+            }}>
+                <RowDataHome>
+                    <DataIcon>
+                        <FontAwesome5
+                            name={dataHome.serDoisIcone}
+                            size={30}
+                            color="#fff"
+                        />
+                    </DataIcon>
+                    <DataHome>{dataHome.serDoisTitulo}</DataHome>
+                    <ViewContato>
+                        <MaterialCommunityIcons
+                            name="greater-than"
+                            size={30}
+                            color="#fff"
+                        />
+                    </ViewContato>
+                </RowDataHome>
+                <RowDataHome>
+                    <Text>{dataHome.serDoisDesc}</Text>
+                </RowDataHome>
+            </ContentHome>
+
+            <ContentHome onPress={() => {
+                navigation.navigate('Contato')
+            }}>
+                <RowDataHome>
+                    <DataIcon>
+                        <FontAwesome5
+                            name={dataHome.serTresIcone}
+                            size={30}
+                            color="#fff"
+                        />
+                    </DataIcon>
+                    <DataHome>{dataHome.serTresTitulo}</DataHome>
+                    <ViewContato>
+                        <MaterialCommunityIcons
+                            name="greater-than"
+                            size={30}
+                            color="#fff"
+                        />
+                    </ViewContato>
+                </RowDataHome>
+                <RowDataHome>
+                    <Text>{dataHome.serTresDesc}</Text>
+                </RowDataHome>
+            </ContentHome>
+
+            {loading &&
+                <LoadingArea>
+                    <ActivityIndicator
+                        size="large"
+                        color="#fff"
+                    />
+                </LoadingArea>
+            }
+        </Container>
+    );
+};
